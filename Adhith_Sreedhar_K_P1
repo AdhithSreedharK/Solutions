@@ -1,0 +1,28 @@
+def virusIndices(p, v):
+    def is_matching(sub, virus):
+        if len(sub) != len(virus):
+            return False
+        mismatch_count = 0
+        for i in range(len(sub)):
+            if sub[i] != virus[i]:
+                mismatch_count += 1
+                if mismatch_count > 1:
+                    return False
+        return True
+
+    matches = []
+    for i in range(len(p) - len(v) + 1):
+        sub = p[i:i+len(v)]
+        if sub == v or is_matching(sub, v):
+            matches.append(i)
+
+    if matches:
+        print(' '.join(map(str, matches)))
+    else:
+        print('No Match!')
+
+with open("input.txt", "r") as file:
+    test_cases = int(file.readline().strip())
+    for _ in range(test_cases):
+        p, v = file.readline().strip().split()
+        virusIndices(p, v)
